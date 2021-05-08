@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 
-export const LinksPageTemplate = ({ displayName, backgroundColor, linkBackgroundColor, linkTextColor }) => {
+export const LinksPageTemplate = ({ displayName, backgroundColor, linkBackgroundColor, linkTextColor, links }) => {
+  const style = {color: linkTextColor, backgroundColor: linkBackgroundColor}
   return (
     <div style={{backgroundColor}} className="container">
       <div className="columns">
@@ -13,8 +14,13 @@ export const LinksPageTemplate = ({ displayName, backgroundColor, linkBackground
               {displayName}
             </h2>
             <ul>
-              <li style={{color: linkTextColor, backgroundColor: linkBackgroundColor}}>Escucha REVELACIÓN // Listen to REVELACIÓN</li>
-              <li style={{color: linkTextColor, backgroundColor: linkBackgroundColor}}>Shop my Official Store</li>
+              {
+                links.map(link => {
+                  (
+                    <li style>{link.title}</li>
+                  )
+                })
+              }
             </ul>
           </div>
         </div>
@@ -31,7 +37,7 @@ LinksPageTemplate.propTypes = {
 }
 
 const LinksPage = ({ data }) => {
-  const { markdownRemark: post } = data
+  const { markdownRemark: post, allMarkdownRemark: links } = data
 
   return (
       <LinksPageTemplate
@@ -39,6 +45,7 @@ const LinksPage = ({ data }) => {
         backgroundColor={post.frontmatter.backgroundColor}
         linkBackgroundColor={post.frontmatter.linkBackgroundColor}
         linkTextColor={post.frontmatter.linkTextColor}
+        links
       />
   )
 }
@@ -51,12 +58,23 @@ export default LinksPage
 
 export const linksPageQuery = graphql`
   query LinksPage($id: String!) {
-    markdownRemark(id: { eq: $id }) {
+    markdownRemark(id: { eq : $id }) {
       frontmatter {
-        displayName
-        backgroundColor
-        linkBackgroundColor
-        linkTextColor
+            displayName
+            backgroundColor
+            linkBackgroundColor
+            linkTextColor
+          }
+    }
+    allMarkdownRemark(limit: 1000, filter: {frontmatter: {templateKey: {eq: "link"}}}) {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            link
+          }
+        }
       }
     }
   }
