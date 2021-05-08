@@ -5,6 +5,7 @@ import Layout from '../components/Layout'
 
 export const LinksPageTemplate = ({ displayName, backgroundColor, linkBackgroundColor, linkTextColor, links }) => {
   const style = {color: linkTextColor, backgroundColor: linkBackgroundColor}
+  const renderedLinks = links.map((link) => <li style>{link.title}</li>)
   return (
     <div style={{backgroundColor}} className="container">
       <div className="columns">
@@ -14,13 +15,7 @@ export const LinksPageTemplate = ({ displayName, backgroundColor, linkBackground
               {displayName}
             </h2>
             <ul>
-              {
-                links.map(link => {
-                  (
-                    <li style>{link.title}</li>
-                  )
-                })
-              }
+              {renderedLinks}
             </ul>
           </div>
         </div>
