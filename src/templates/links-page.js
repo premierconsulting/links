@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 
 export const LinksPageTemplate = ({ displayName, backgroundColor, linkBackgroundColor, linkTextColor, links }) => {
+  console.log(links)
   const style = {color: linkTextColor, backgroundColor: linkBackgroundColor}
   const renderedLinks = links.map((link) => <li style>{link.node.title}</li>)
   return (
@@ -34,6 +35,7 @@ LinksPageTemplate.propTypes = {
 const LinksPage = ({ data }) => {
   const { markdownRemark: post, allMarkdownRemark: links } = data
   const theLinks = links.edges
+  console.log(data)
 
   return (
       <LinksPageTemplate
