@@ -2,46 +2,44 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import Content, { HTMLContent } from '../components/Content'
 
-export const LinksPageTemplate = ({ title, content, contentComponent }) => {
-  const PageContent = contentComponent || Content
-
+export const LinksPageTemplate = ({ displayName, backgroundColor, linkBackgroundColor, linkTextColor }) => {
   return (
-    <section className="section section--gradient">
-      <div className="container">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <div className="section">
-              <h2 className="title is-size-3 has-text-weight-bold is-bold-light">
-                {title}
-              </h2>
-              <PageContent className="content" content={content} />
-            </div>
+    <div style={{backgroundColor}} className="container">
+      <div className="columns">
+        <div className="column is-10 is-offset-1">
+          <div className="section">
+            <h2 className="title is-size-3 has-text-weight-bold is-bold-light">
+              {displayName}
+            </h2>
+            <ul>
+              <li style={{color: linkTextColor, backgroundColor: linkBackgroundColor}}>Escucha REVELACIÓN // Listen to REVELACIÓN</li>
+              <li style={{color: linkTextColor, backgroundColor: linkBackgroundColor}}>Shop my Official Store</li>
+            </ul>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
 LinksPageTemplate.propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string,
-  contentComponent: PropTypes.func,
+  displayName: PropTypes.string.isRequired,
+  backgroundColor: PropTypes.string.isRequired,
+  linkBackgroundColor: PropTypes.string.isRequired,
+  linkTextColor: PropTypes.string.isRequired,
 }
 
 const LinksPage = ({ data }) => {
   const { markdownRemark: post } = data
 
   return (
-    <Layout>
       <LinksPageTemplate
-        contentComponent={HTMLContent}
-        title={post.frontmatter.title}
-        content={post.html}
+        displayName={post.frontmatter.displayName}
+        backgroundColor={post.frontmatter.backgroundColor}
+        linkBackgroundColor={post.frontmatter.linkBackgroundColor}
+        linkTextColor={post.frontmatter.linkTextColor}
       />
-    </Layout>
   )
 }
 
@@ -54,9 +52,11 @@ export default LinksPage
 export const linksPageQuery = graphql`
   query LinksPage($id: String!) {
     markdownRemark(id: { eq: $id }) {
-      html
       frontmatter {
-        title
+        displayName
+        backgroundColor
+        linkBackgroundColor
+        linkTextColor
       }
     }
   }
