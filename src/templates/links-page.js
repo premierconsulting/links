@@ -7,7 +7,7 @@ export const LinksPageTemplate = ({ displayName, backgroundColor, linkBackground
   console.log(links)
   const style = {color: linkTextColor, backgroundColor: linkBackgroundColor}
   links.forEach((link) => console.log(link.node.frontmatter))
-  const renderedLinks = links.map((link) => <li style>{link.node.frontmatter.title}</li>)
+  const renderedLinks = links.map((link) => <li>{link.node.frontmatter.title}</li>)
   return (
     <div style={{backgroundColor}} className="container">
       <div className="columns">
