@@ -1,7 +1,7 @@
 ---
 templateKey: links-page
 displayName: Selena Gomez
-backgroundColor: ""
-linkBackgroundColor: ""
-linkTextColor: ""
+backgroundColor: "#ab3435"
+linkBackgroundColor: "#ffffff"
+linkTextColor: "#040404"
 ---
