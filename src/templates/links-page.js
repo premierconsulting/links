@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 
 export const LinksPageTemplate = ({ displayName, backgroundColor, linkBackgroundColor, linkTextColor, links }) => {
   const style = {color: linkTextColor, backgroundColor: linkBackgroundColor}
-  const renderedLinks = links.map((link) => <li style>{link.title}</li>)
+  const renderedLinks = links.map((link) => <li style>{link.node.title}</li>)
   return (
     <div style={{backgroundColor}} className="container">
       <div className="columns">
@@ -33,6 +33,7 @@ LinksPageTemplate.propTypes = {
 
 const LinksPage = ({ data }) => {
   const { markdownRemark: post, allMarkdownRemark: links } = data
+  const theLinks = links.edges
 
   return (
       <LinksPageTemplate
@@ -40,7 +41,7 @@ const LinksPage = ({ data }) => {
         backgroundColor={post.frontmatter.backgroundColor}
         linkBackgroundColor={post.frontmatter.linkBackgroundColor}
         linkTextColor={post.frontmatter.linkTextColor}
-        links
+        links={theLinks}
       />
   )
 }
