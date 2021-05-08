@@ -12,6 +12,16 @@ media_folder: static/img
 public_folder: /img
 
 collections:
+  - name: "links"
+    label: "Links"
+    folder: "src/links/"
+    create: true
+    slug: "{{linkname}}"
+    fields:
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "link"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Link", name: "link", widget: "string"}
+
   - name: "blog"
     label: "Blog"
     folder: "src/pages/blog"
@@ -30,6 +40,15 @@ collections:
   - name: "pages"
     label: "Pages"
     files:
+      - file: "src/pages/links.md"
+        label: "Links Page"
+        name: "links"
+        fields:
+          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "links-page"}
+          - {label: "Display Name", name: displayName, widget: "string"}
+          - {label: "Background Color", name: backgroundColor, widget: "color"}
+          - {label: "Link Background Color", name: linkBackgroundColor, widget: "color"}
+          - {label: "Link Text Color", name: linkTextColor, widget: "color"}
       - file: "src/pages/index.md"
         label: "Landing Page"
         name: "index"
